@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>To-do Tasks</title>
+        <link rel="stylesheet" href="/static/css/index.css">
+        <script src="https://kit.fontawesome.com/92617d687e.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <header>
+            <h1>
+                Server: <span>{{ status }}</span>.
+            </h1>
+        </header>
+
+        <main id="motherbox">
+            <div class="tasksPanel">
+                <div class="textBox">
+                    <h2>Enlist your Tasks</h2>
+                    <p>To create a new task press the button <span class="code-like">Create Task</span> below!</p>
+                </div>
+
+                <div class="buttonBox">
+                    <button id="createTaskButton"><i class="fa-solid fa-plus"></i> Create Task</button>
+                </div>
+
+                <div id="modal">
+                    <form action="/add_task" method="post" id="form">
+                        <h3>New Task</h3>
+                        <input type="text" name="name" class="taskInput" id="taskName" placeholder="What would you do?">
+                        <textarea name="description" id="taskDescription" placeholder="Description"></textarea>
+                        <input type="date" name="due_date" class="taskInput" id="taskDueDate">
+                        <div id="formButtons">
+                            <button type="submit" id="submitButton">Add</button>
+                            <button type="reset" id="cancelButton">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="tasksList">
+                {% for task in tasks %}
+                <div class="task">
+                    <div class="taskHead">
+                        <input type="checkbox" class="taskCheckbox" data-task-id="{{ task._id }}">
+                        <h4>{{ task.name }}</h4>
+                    </div>
+                    <div class="taskDetails">
+                        <p>{{ task.description }}</p>
+                        <p>{{ task.due_date }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <script src="/static/js/index.js"></script>
+        </main>
+    </body>
+</html>
